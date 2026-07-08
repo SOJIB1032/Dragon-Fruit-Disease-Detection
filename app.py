@@ -526,7 +526,7 @@ if uploaded:
     st.markdown("<div style='height:36px'></div>", unsafe_allow_html=True)
 
     # ── Confidence 90% এর নিচে হলে "Not Predicted" দেখাও ──
-    if confidence < 90.0:
+    if confidence < 95.0:
         col_img, col_warn = st.columns([1, 1], gap="large")
         with col_img:
             st.markdown('<div class="section-label">Input Image</div>', unsafe_allow_html=True)
@@ -537,7 +537,7 @@ if uploaded:
                 <div style="font-size:64px; margin-bottom:16px;">⚠️</div>
                 <div class="result-label">Diagnosis Result</div>
                 <div class="result-disease-name" style="color:#facc15; font-size:28px; margin:12px 0;">
-                    This image is not predicted
+                    This image is not Predictable
                 </div>
                 <div style="color:rgba(232,240,233,0.45); font-size:14px; line-height:1.6; margin-top:8px;">
                     Confidence score is too low<br>
