@@ -1,7 +1,8 @@
-streamlit
+streamlit==1.46.1
 tensorflow==2.19.0
-numpy
-Pillow
-opencv-python-headless
-matplotlib
-h5py
+keras==3.10.0
+numpy==1.26.4
+Pillow==11.2.1
+opencv-python-headless==4.11.0.86
+matplotlib==3.10.3
+h5py==3.14.0
