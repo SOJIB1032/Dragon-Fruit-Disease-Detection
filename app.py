@@ -431,10 +431,10 @@ st.markdown("""
 def load_disease_model():
     # FIX: model file না থাকলে clear error দেখাবে
     import os
-    if not os.path.exists("models/best_model.h5"):
-        st.error("⚠️ Model file পাওয়া যায়নি! 'models/best_model.h5' path এ রাখুন।")
+    if not os.path.exists("models/best_model.keras"):
+        st.error("⚠️ Model file পাওয়া যায়নি! 'models/best_model.keras' path এ রাখুন।")
         st.stop()
-    return load_model("models/best_model.h5")
+    return load_model("models/best_model.keras")
 
 model = load_disease_model()
 
