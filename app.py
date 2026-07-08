@@ -434,7 +434,8 @@ def load_disease_model():
     if not os.path.exists("models/best_model.keras"):
         st.error("⚠️ Model file পাওয়া যায়নি! 'models/best_model.keras' path এ রাখুন।")
         st.stop()
-    return load_model("models/best_model.keras")
+    return load_model("models/best_model.keras",   compile=False,
+    safe_mode=False)
 
 model = load_disease_model()
 
