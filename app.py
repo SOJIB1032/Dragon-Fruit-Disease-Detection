@@ -536,7 +536,7 @@ if uploaded:
     st.markdown("<div style='height:36px'></div>", unsafe_allow_html=True)
 
     # ── Confidence 90% এর নিচে হলে "Not Predicted" দেখাও ──
-    if confidence < 90.0:
+    if confidence < 60.0:
         col_img, col_warn = st.columns([1, 1], gap="large")
         with col_img:
             st.markdown('<div class="section-label">Input Image</div>', unsafe_allow_html=True)
@@ -552,7 +552,7 @@ if uploaded:
                 <div style="color:rgba(232,240,233,0.45); font-size:14px; line-height:1.6; margin-top:8px;">
                     Confidence score is too low<br>
                     <span style="color:#facc15; font-weight:600;">{confidence:.1f}%</span>
-                    &nbsp;(minimum required: 90%)
+                    &nbsp;(minimum required: 60%)
                 </div>
                 <div style="margin-top:24px; background:rgba(250,204,21,0.07); border:1px solid rgba(250,204,21,0.2); border-radius:12px; padding:14px 18px; font-size:13px; color:rgba(232,240,233,0.6);">
                     💡 Please upload a clearer image of the dragon fruit stem or leaf for accurate detection.
