@@ -425,27 +425,19 @@ st.markdown("""
 
 
 # =============================
-# LOAD ALL 5 MODELS (ENSEMBLE)
+# LOAD MODEL
 # =============================
 @st.cache_resource
-def load_all_models():
+def load_disease_model():
+    # FIX: model file না থাকলে clear error দেখাবে
     import os
-    model_paths = [
-        "models/final_model4.h5",
-        "models/final_model3.h5",
-        "models/final_model2.h5",
-        "models/final_model1.h5",
-        "models/final_model.h5",
-    ]
-    loaded = []
-    for path in model_paths:
-        if not os.path.exists(path):
-            st.error(f"⚠️ Model পাওয়া যায়নি: {path}")
-            st.stop()
-        loaded.append(load_model(path, compile=False))
-    return loaded
+    if not os.path.exists("models/final_model.h5"):
+        st.error("⚠️ Model file পাওয়া যায়নি! 'models/final_model.h5' path এ রাখুন।")
+        st.stop()
+    return load_model("models/final_model.h5",   compile=False,
+    safe_mode=False)
 
-models = load_all_models()
+model = load_disease_model()
 
 CLASS_NAMES = ["Brown stem spot", "Healthy", "Soft Rot", "Stem Cenker"]
 
@@ -506,7 +498,6 @@ uploaded = st.file_uploader(
     type=["jpg", "png", "jpeg"],
     label_visibility="hidden"  # ← এটাই ছিল মূল সমস্যা
 )
-
 # =============================
 # RESULTS
 # =============================
@@ -520,10 +511,9 @@ if uploaded:
 
     img_array = preprocess(img)
 
-    with st.spinner("Running inference across all 5 models…"):
+    with st.spinner("Running inference…"):
         try:
-            all_preds = [m.predict(img_array) for m in models]
-            pred = np.mean(all_preds, axis=0)
+            pred = model.predict(img_array)
         except Exception as e:
             st.error(f"Model prediction এ সমস্যা: {e}")
             st.stop()
@@ -536,7 +526,7 @@ if uploaded:
     st.markdown("<div style='height:36px'></div>", unsafe_allow_html=True)
 
     # ── Confidence 90% এর নিচে হলে "Not Predicted" দেখাও ──
-    if confidence < 60.0:
+    if confidence < 97.0:
         col_img, col_warn = st.columns([1, 1], gap="large")
         with col_img:
             st.markdown('<div class="section-label">Input Image</div>', unsafe_allow_html=True)
@@ -547,12 +537,12 @@ if uploaded:
                 <div style="font-size:64px; margin-bottom:16px;">⚠️</div>
                 <div class="result-label">Diagnosis Result</div>
                 <div class="result-disease-name" style="color:#facc15; font-size:28px; margin:12px 0;">
-                    This image is not predicted
+                    This image is not Predictable
                 </div>
                 <div style="color:rgba(232,240,233,0.45); font-size:14px; line-height:1.6; margin-top:8px;">
                     Confidence score is too low<br>
                     <span style="color:#facc15; font-weight:600;">{confidence:.1f}%</span>
-                    &nbsp;(minimum required: 60%)
+                    &nbsp;(minimum required: 97%)
                 </div>
                 <div style="margin-top:24px; background:rgba(250,204,21,0.07); border:1px solid rgba(250,204,21,0.2); border-radius:12px; padding:14px 18px; font-size:13px; color:rgba(232,240,233,0.6);">
                     💡 Please upload a clearer image of the dragon fruit stem or leaf for accurate detection.
