@@ -542,7 +542,7 @@ if uploaded:
                 <div style="color:rgba(232,240,233,0.45); font-size:14px; line-height:1.6; margin-top:8px;">
                     Confidence score is too low<br>
                     <span style="color:#facc15; font-weight:600;">{confidence:.1f}%</span>
-                    &nbsp;(minimum required: 97%)
+                    &nbsp;
                 </div>
                 <div style="margin-top:24px; background:rgba(250,204,21,0.07); border:1px solid rgba(250,204,21,0.2); border-radius:12px; padding:14px 18px; font-size:13px; color:rgba(232,240,233,0.6);">
                     💡 Please upload a clearer image of the dragon fruit stem or leaf for accurate detection.
